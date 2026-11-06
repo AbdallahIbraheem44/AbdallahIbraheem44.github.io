@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Systems Analyst Portfolio — Enterprise Architecture, Business Analysis, UML, BPMN, and API Design.">
+<title>Abdullah Ibrahim Elsayed Mohamed Tawfik | Systems Analyst Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   DESIGN TOKENS
+========================================================= */
+:root {
+  --primary: #1e3a8a;
+  --primary-light: #3b5bdb;
+  --primary-dark: #0f1f4a;
+  --accent: #06b6d4;
+  --accent-hover: #0891b2;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --bg-card: #ffffff;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,.06);
+  --shadow-md: 0 4px 12px rgba(15,23,42,.08);
+  --shadow-lg: 0 12px 32px rgba(15,23,42,.12);
+  --shadow-xl: 0 24px 48px rgba(15,23,42,.16);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --primary: #3b5bdb;
+  --primary-light: #5c7cfa;
+  --primary-dark: #1e3a8a;
+  --accent: #22d3ee;
+  --accent-hover: #67e8f9;
+  --bg: #0a0f1e;
+  --bg-alt: #111827;
+  --bg-card: #1a2332;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+  --border: #1e293b;
+  --border-strong: #334155;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.6);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,.7);
+}
+
+/* =========================================================
+   RESET & BASE
+========================================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 100px 0; }
+.section-header { text-align: center; max-width: 700px; margin: 0 auto 64px; }
+.section-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--bg-alt);
+  color: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.section-desc { color: var(--text-muted); font-size: 17px; }
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 16px 0;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+[data-theme="dark"] .navbar { background: rgba(10,15,30,0.8); }
+.navbar.scrolled { padding: 12px 0; border-bottom-color: var(--border); box-shadow: var(--shadow-sm); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+.logo-mark {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+.logo-name { font-weight: 800; font-size: 16px; letter-spacing: -0.3px; }
+.logo-role { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+.theme-toggle {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-full);
+  display: grid;
+  place-items: center;
+  background: var(--bg-alt);
+  color: var(--text);
+  transition: var(--transition);
+}
+.theme-toggle:hover { background: var(--border); }
+.nav-cta {
+  padding: 10px 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.nav-cta:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.mobile-menu-btn {
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--bg-alt);
+  color: var(--text);
+  place-items: center;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+.hero { position: relative; padding: 160px 0 100px; overflow: hidden; }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: float 8s ease-in-out infinite;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(59,91,219,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: float 10s ease-in-out infinite reverse;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -20px); }
+}
+.hero-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.status-dot {
+  width: 8px; height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 0 0 rgba(16,185,129,0.7);
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+.hero-greeting {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+.hero-greeting .accent {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+.hero h1 {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-subtitle { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; max-width: 560px; line-height: 1.7; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 48px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-size: 15px;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 14px rgba(30,58,138,0.3); }
+.btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(30,58,138,0.4); }
+.btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.hero-stats { display: flex; gap: 40px; padding-top: 40px; border-top: 1px solid var(--border); }
+.stat-num { font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+.stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+.hero-visual { position: relative; }
+.code-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.5s;
+}
+.code-card:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+.code-header { display: flex; align-items: center; gap: 8px; padding: 14px 18px; background: var(--bg-alt); border-bottom: 1px solid var(--border); }
+.code-dot { width: 12px; height: 12px; border-radius: 50%; }
+.code-dot.red { background: #ff5f57; }
+.code-dot.yellow { background: #febc2e; }
+.code-dot.green { background: #28c840; }
+.code-filename { margin-left: 12px; font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+.code-body { padding: 24px; font-family: var(--mono); font-size: 13px; line-height: 1.8; color: var(--text); }
+.code-line { display: flex; gap: 8px; }
+.code-num { color: var(--text-light); user-select: none; min-width: 24px; text-align: right; }
+.code-key { color: #8b5cf6; }
+.code-string { color: #10b981; }
+.code-comment { color: var(--text-light); font-style: italic; }
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+.tech-strip { padding: 32px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-alt); overflow: hidden; }
+.marquee { display: flex; gap: 64px; animation: scroll 30s linear infinite; white-space: nowrap; }
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+.about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: flex-start; }
+.about-image {
+  position: relative;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: white;
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  position: sticky;
+  top: 100px;
+}
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.2));
+  pointer-events: none;
+}
+.about-image-content { position: relative; z-index: 1; line-height: 1.05; }
+.about-image-initials { font-size: 96px; font-weight: 900; letter-spacing: -4px; margin-bottom: 12px; }
+.about-image-name { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.95; }
+.about-image-role { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; opacity: 0.8; }
+.about-content h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.about-content .about-intro { font-size: 18px; color: var(--text); font-weight: 500; margin-bottom: 20px; line-height: 1.6; }
+.about-content p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+.about-highlights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-alt);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.highlight-icon {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+}
+.highlight-text { font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+/* Education Block */
+.education-block {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--bg-alt);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent);
+  position: relative;
+}
+.education-block::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 100%;
+  background: radial-gradient(circle at top right, rgba(6,182,212,0.08) 0%, transparent 70%);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+}
+.education-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.education-degree { font-weight: 800; font-size: 17px; margin-bottom: 4px; color: var(--text); }
+.education-school { color: var(--text-muted); font-size: 14px; font-weight: 500; }
+.education-meta { color: var(--text-muted); font-size: 13px; margin-top: 6px; display: flex; gap: 16px; flex-wrap: wrap; }
+.education-courses {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-strong);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.education-courses strong { color: var(--text); font-weight: 700; }
+
+/* =========================================================
+   PROCESS SECTION
+========================================================= */
+.process-section { background: var(--bg-alt); }
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.process-step {
+  padding: 32px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  position: relative;
+  text-align: center;
+}
+.process-step:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--accent);
+}
+.process-step-num {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(6,182,212,0.4);
+}
+.process-step-icon {
+  width: 56px; height: 56px;
+  margin: 16px auto 20px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(59,91,219,0.1), rgba(6,182,212,0.1));
+  border-radius: var(--radius-md);
+  color: var(--accent);
+}
+.process-step h3 { font-size: 16px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.3px; }
+.process-step p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+.process-step-tools {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.process-tool {
+  padding: 4px 10px;
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+}
+
+/* =========================================================
+   SKILLS
+========================================================= */
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.skill-card {
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+.skill-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.skill-card:hover::before { transform: scaleX(1); }
+.skill-icon {
+  width: 56px; height: 56px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(59,91,219,0.1), rgba(6,182,212,0.1));
+  border-radius: var(--radius-md);
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.skill-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+  padding: 6px 12px;
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.skill-tag:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+.projects-grid { display: grid; gap: 32px; }
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  position: relative;
+}
+.project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: var(--accent); }
+.project-visual { position: relative; min-height: 340px; display: grid; place-items: center; padding: 40px; overflow: hidden; }
+.project-visual.p1 { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+.project-visual.p2 { background: linear-gradient(135deg, #7c2d12, #f59e0b); }
+.project-visual.p3 { background: linear-gradient(135deg, #064e3b, #10b981); }
+.project-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+.project-num {
+  font-size: 180px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.15);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -8px;
+}
+.project-badge {
+  position: absolute;
+  top: 24px; left: 24px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.project-content { padding: 40px; display: flex; flex-direction: column; }
+.project-title { font-size: 24px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+.project-desc { color: var(--text-muted); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
+.project-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.metric-num { font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: -1px; }
+.metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.project-tag {
+  padding: 4px 10px;
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+}
+.project-footer { margin-top: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.project-link:hover { background: var(--primary-light); transform: translateX(2px); }
+.project-link.secondary { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
+.project-link.secondary:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+
+/* =========================================================
+   CTA
+========================================================= */
+.cta-section { padding: 100px 0; position: relative; overflow: hidden; }
+.cta-box {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius-lg);
+  padding: 80px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+.cta-box::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 60%);
+  border-radius: 50%;
+}
+.cta-box::after {
+  content: '';
+  position: absolute;
+  bottom: -50%; left: -20%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+  border-radius: 50%;
+}
+.cta-box > * { position: relative; z-index: 1; }
+.cta-box h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+.cta-box p { font-size: 17px; opacity: 0.9; max-width: 600px; margin: 0 auto 40px; }
+.cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-white { background: white; color: var(--primary); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); background: white; }
+.btn-ghost { background: rgba(255,255,255,0.1); color: white; border: 1.5px solid rgba(255,255,255,0.3); }
+.btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.footer { padding: 60px 0 30px; border-top: 1px solid var(--border); background: var(--bg-alt); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand p { color: var(--text-muted); font-size: 14px; margin-top: 16px; max-width: 320px; line-height: 1.7; }
+.footer-col h4 { font-size: 14px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col a { font-size: 14px; color: var(--text-muted); transition: color 0.2s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.footer-bottom strong { color: var(--text); font-weight: 700; }
+.social-links { display: flex; gap: 12px; }
+.social-link {
+  width: 36px; height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+.social-link:hover { background: var(--accent); color: white; border-color: var(--accent); transform: translateY(-2px); }
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 992px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { max-width: 500px; margin: 0 auto; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-image { max-width: 320px; margin: 0 auto; position: relative; top: auto; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .project-card { grid-template-columns: 1fr; }
+  .project-visual { min-height: 240px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 60px 0; }
+  .hero { padding: 120px 0 60px; }
+  .nav-links, .nav-cta { display: none; }
+  .mobile-menu-btn { display: grid; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  .hero-stats .stat { flex: 1 1 40%; }
+  .process-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .project-content { padding: 28px; }
+  .project-metrics { grid-template-columns: 1fr 1fr; }
+  .cta-box { padding: 48px 24px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .code-body { font-size: 11px; padding: 16px; }
+  .logo-name { font-size: 14px; }
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0; right: -100%;
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  padding: 80px 24px 24px;
+  z-index: 999;
+  transition: right 0.3s;
+  box-shadow: var(--shadow-xl);
+}
+.mobile-menu.open { right: 0; }
+.mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.mobile-menu a {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  transition: background 0.2s;
+}
+.mobile-menu a:hover { background: var(--bg-alt); }
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.mobile-overlay.open { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">SA</div>
+      <div class="logo-text">
+        <span class="logo-name">Abdullah Ibrahim Elsayed Mohamed Tawfik</span>
+        <span class="logo-role">Systems Analyst</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <a href="#contact" class="nav-cta">Hire Me</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="status-dot"></span>
+        Available for new opportunities
+      </div>
+      <p class="hero-greeting reveal">
+        👋 Hi, I'm <span class="accent">Abdullah Ibrahim Elsayed Mohamed Tawfik</span>
+      </p>
+      <h1 class="reveal">
+        I Turn Complex Business Problems Into <span class="accent">Clear System Designs.</span>
+      </h1>
+      <p class="hero-subtitle reveal">
+        Systems Analyst specializing in Enterprise Architecture, BPMN/UML modeling, and API design. I bridge the gap between business needs and technical solutions for regulated, high-stakes industries.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#projects" class="btn btn-primary">
+          View My Case Studies
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+        <a href="files/CV_Systems_Analyst.pdf" download class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download CV
+        </a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Enterprise Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">45+</div>
+          <div class="stat-label">UML & BPMN Diagrams</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">80+</div>
+          <div class="stat-label">Requirements Modeled</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Industries Covered</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="code-card">
+        <div class="code-header">
+          <span class="code-dot red"></span>
+          <span class="code-dot yellow"></span>
+          <span class="code-dot green"></span>
+          <span class="code-filename">analyst-profile.yaml</span>
+        </div>
+        <div class="code-body">
+          <div class="code-line"><span class="code-num">1</span><span class="code-key">name</span>: <span class="code-string">"Abdullah Ibrahim Elsayed Mohamed Tawfik"</span></div>
+          <div class="code-line"><span class="code-num">2</span><span class="code-key">role</span>: <span class="code-string">"Systems Analyst"</span></div>
+          <div class="code-line"><span class="code-num">3</span><span class="code-key">education</span>: <span class="code-string">"B.Sc. Information Systems"</span></div>
+          <div class="code-line"><span class="code-num">4</span><span class="code-key">university</span>: <span class="code-string">"Mansoura University"</span></div>
+          <div class="code-line"><span class="code-num">5</span><span class="code-key">focus</span>:</div>
+          <div class="code-line"><span class="code-num">6</span>&nbsp;&nbsp;- <span class="code-string">"Enterprise Architecture"</span></div>
+          <div class="code-line"><span class="code-num">7</span>&nbsp;&nbsp;- <span class="code-string">"Business Analysis"</span></div>
+          <div class="code-line"><span class="code-num">8</span>&nbsp;&nbsp;- <span class="code-string">"Event-Driven Systems"</span></div>
+          <div class="code-line"><span class="code-num">9</span><span class="code-key">tools</span>:</div>
+          <div class="code-line"><span class="code-num">10</span>&nbsp;&nbsp;- <span class="code-string">"BPMN 2.0"</span></div>
+          <div class="code-line"><span class="code-num">11</span>&nbsp;&nbsp;- <span class="code-string">"UML / C4 Model"</span></div>
+          <div class="code-line"><span class="code-num">12</span>&nbsp;&nbsp;- <span class="code-string">"SQL / API Design"</span></div>
+          <div class="code-line"><span class="code-num">13</span><span class="code-key">status</span>: <span class="code-string">"open_to_work"</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STRIP -->
+<div class="tech-strip">
+  <div class="marquee">
+    <div class="marquee-item">⚡ BPMN 2.0</div>
+    <div class="marquee-item">📊 DFD & ERD</div>
+    <div class="marquee-item">🏗️ C4 Model</div>
+    <div class="marquee-item">🔌 REST & Webhooks</div>
+    <div class="marquee-item">🗄️ SQL & Data Modeling</div>
+    <div class="marquee-item">📋 BRD & SRS</div>
+    <div class="marquee-item">🎯 Agile & Scrum</div>
+    <div class="marquee-item">📈 Traceability Matrices</div>
+    <div class="marquee-item">⚡ BPMN 2.0</div>
+    <div class="marquee-item">📊 DFD & ERD</div>
+    <div class="marquee-item">🏗️ C4 Model</div>
+    <div class="marquee-item">🔌 REST & Webhooks</div>
+    <div class="marquee-item">🗄️ SQL & Data Modeling</div>
+    <div class="marquee-item">📋 BRD & SRS</div>
+    <div class="marquee-item">🎯 Agile & Scrum</div>
+    <div class="marquee-item">📈 Traceability Matrices</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <div class="about-image-content">
+          <div class="about-image-initials">SA</div>
+          <div class="about-image-name">Abdullah Ibrahim Elsayed Mohamed Tawfik</div>
+          <div class="about-image-role">Systems Analyst</div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <span class="section-tag">About Me</span>
+        <h2>Hi, I'm <span style="background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Abdullah Ibrahim Elsayed Mohamed Tawfik</span>.</h2>
+        <p class="about-intro">
+          A Systems Analyst bridging business and technology, one diagram at a time.
+        </p>
+        <p>
+          I have a passion for dissecting complex business processes and rebuilding them into clean, scalable, and compliant system designs. My work sits at the intersection of <strong>stakeholder communication</strong>, <strong>process modeling</strong>, and <strong>technical documentation</strong>.
+        </p>
+        <p>
+          I don't just draw diagrams. I analyze the "why" behind every decision, define measurable business objectives, and produce artifacts that engineering teams can actually build from — BRDs, SRSs, BPMN workflows, API specs, and traceability matrices.
+        </p>
+
+        <!-- EDUCATION BLOCK -->
+        <div class="education-block">
+          <div class="education-tag">
+            🎓 Academic Foundation
+          </div>
+          <div class="education-degree">B.Sc. in Information Systems</div>
+          <div class="education-school">Faculty of Computers and Information — Mansoura University, Egypt</div>
+          <div class="education-meta">
+            <span>📅 Graduated 2026</span>
+            <span>🎯 Specialization: Information Systems</span>
+          </div>
+          <div class="education-courses">
+            <strong>Core Coursework:</strong> Systems Analysis & Design · Database Management Systems · Software Engineering · Business Process Modeling · Requirements Engineering · Object-Oriented Analysis
+          </div>
+        </div>
+
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="highlight-text">3 Full Enterprise Case Studies</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="highlight-text">45+ Professional Diagrams</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="highlight-text">Healthcare / Fintech / Logistics</div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div class="highlight-text">Full BRD + SRS + API Specs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS SECTION -->
+<section class="section process-section" id="process">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">My Analytical Process</span>
+      <h2 class="section-title">How I Turn Ambiguity Into Buildable Systems</h2>
+      <p class="section-desc">Every project follows the same rigorous methodology — from understanding the problem to delivering documentation that engineers can build from.</p>
+    </div>
+    <div class="process-grid">
+
+      <div class="process-step reveal">
+        <div class="process-step-num">1</div>
+        <div class="process-step-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </div>
+        <h3>Discover & Elicit</h3>
+        <p>Interview stakeholders, map pain points, and define measurable business objectives before touching any diagram.</p>
+        <div class="process-step-tools">
+          <span class="process-tool">Stakeholder Analysis</span>
+          <span class="process-tool">As-Is Process</span>
+          <span class="process-tool">Business Objectives</span>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-step-num">2</div>
+        <div class="process-step-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+        </div>
+        <h3>Model & Design</h3>
+        <p>Translate requirements into BPMN workflows, UML diagrams, DFDs, and state machines — the To-Be system blueprint.</p>
+        <div class="process-step-tools">
+          <span class="process-tool">BPMN 2.0</span>
+          <span class="process-tool">UML</span>
+          <span class="process-tool">DFD</span>
+          <span class="process-tool">ERD</span>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-step-num">3</div>
+        <div class="process-step-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h3>Specify & Document</h3>
+        <p>Produce the deliverables engineers actually build from: SRS, API specs, RBAC matrices, and audit trails.</p>
+        <div class="process-step-tools">
+          <span class="process-tool">SRS</span>
+          <span class="process-tool">REST API</span>
+          <span class="process-tool">RBAC</span>
+          <span class="process-tool">Idempotency</span>
+        </div>
+      </div>
+
+      <div class="process-step reveal">
+        <div class="process-step-num">4</div>
+        <div class="process-step-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3>Validate & Trace</h3>
+        <p>Ensure every requirement is traceable to a diagram, an API endpoint, and a test case — zero gaps, full auditability.</p>
+        <div class="process-step-tools">
+          <span class="process-tool">Traceability Matrix</span>
+          <span class="process-tool">Risk Analysis</span>
+          <span class="process-tool">CRUD Matrix</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Skills & Expertise</span>
+      <h2 class="section-title">A Full Analyst's Toolkit</h2>
+      <p class="section-desc">From requirements elicitation to API specifications — I cover the entire systems analysis lifecycle.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <h3>Business Analysis</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">BRD</span>
+          <span class="skill-tag">SRS</span>
+          <span class="skill-tag">Stakeholder Analysis</span>
+          <span class="skill-tag">As-Is / To-Be</span>
+          <span class="skill-tag">User Stories</span>
+          <span class="skill-tag">Traceability Matrix</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </div>
+        <h3>Modeling & Diagrams</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">BPMN 2.0</span>
+          <span class="skill-tag">UML</span>
+          <span class="skill-tag">C4 Model</span>
+          <span class="skill-tag">DFD (L0-L2)</span>
+          <span class="skill-tag">ERD</span>
+          <span class="skill-tag">State Machines</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h3>Technical Design</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Webhooks</span>
+          <span class="skill-tag">SQL Queries</span>
+          <span class="skill-tag">Idempotency</span>
+          <span class="skill-tag">Event-Driven Architecture</span>
+          <span class="skill-tag">RBAC</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Methodologies</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">SDLC</span>
+          <span class="skill-tag">Gap Analysis</span>
+          <span class="skill-tag">Risk Analysis</span>
+          <span class="skill-tag">CRUD Matrix</span>
+          <span class="skill-tag">Compliance (KYC/AML)</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <h3>Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Jira</span>
+          <span class="skill-tag">Confluence</span>
+          <span class="skill-tag">Draw.io</span>
+          <span class="skill-tag">Mermaid</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">Lucidchart</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h3>Soft Skills</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Stakeholder Communication</span>
+          <span class="skill-tag">Requirements Elicitation</span>
+          <span class="skill-tag">Problem Solving</span>
+          <span class="skill-tag">Critical Thinking</span>
+          <span class="skill-tag">Documentation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects" style="background: var(--bg-alt);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Case Studies</span>
+      <h2 class="section-title">Three Enterprise-Grade Projects</h2>
+      <p class="section-desc">Each project is a complete analysis: from business context and stakeholder needs to UML diagrams, API specs, and risk matrices.</p>
+    </div>
+    <div class="projects-grid">
+
+      <!-- PROJECT 1: Clinic (file renamed: Clinic_Project.pdf) -->
+      <article class="project-card reveal">
+        <div class="project-visual p1">
+          <span class="project-badge">Healthcare</span>
+          <div class="project-num">01</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Clinic Management System</h3>
+          <p class="project-desc">
+            Digitizing a paper-based clinic with 12 doctors and 180 daily patients. Designed the complete BRD, SRS, and 15 UML diagrams to eliminate record loss and cut wait times by 60%.
+          </p>
+          <div class="project-metrics">
+            <div>
+              <div class="metric-num">15</div>
+              <div class="metric-label">UML Diagrams</div>
+            </div>
+            <div>
+              <div class="metric-num">30</div>
+              <div class="metric-label">Requirements</div>
+            </div>
+            <div>
+              <div class="metric-num">7</div>
+              <div class="metric-label">Analytical Tables</div>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Use Case</span>
+            <span class="project-tag">BPMN</span>
+            <span class="project-tag">DFD</span>
+            <span class="project-tag">ERD</span>
+            <span class="project-tag">CRUD Matrix</span>
+          </div>
+          <div class="project-footer">
+            <a href="files/Clinic_Project.pdf" target="_blank" rel="noopener" class="project-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              View PDF
+            </a>
+            <a href="files/Clinic_Project.pdf" download class="project-link secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download
+            </a>
+            <a href="#contact" class="project-link secondary">Discuss</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT 2: Loan -->
+      <article class="project-card reveal">
+        <div class="project-visual p2">
+          <span class="project-badge">Fintech / B2B</span>
+          <div class="project-num">02</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">SME Loan Origination System</h3>
+          <p class="project-desc">
+            A regulated Fintech workflow for SME loans. Modeled the end-to-end origination process with KYC/AML compliance, segregation of duties, and a fully versioned API specification.
+          </p>
+          <div class="project-metrics">
+            <div>
+              <div class="metric-num">9</div>
+              <div class="metric-label">Analysis Diagrams</div>
+            </div>
+            <div>
+              <div class="metric-num">15</div>
+              <div class="metric-label">FRs Modeled</div>
+            </div>
+            <div>
+              <div class="metric-num">8</div>
+              <div class="metric-label">API Endpoints</div>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">BPMN</span>
+            <span class="project-tag">State Machine</span>
+            <span class="project-tag">REST API</span>
+            <span class="project-tag">RBAC</span>
+            <span class="project-tag">SoD</span>
+          </div>
+          <div class="project-footer">
+            <a href="files/SME_LOS_Analysis.pdf" target="_blank" rel="noopener" class="project-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              View PDF
+            </a>
+            <a href="files/SME_LOS_Analysis.pdf" download class="project-link secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download
+            </a>
+            <a href="#contact" class="project-link secondary">Discuss</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT 3: SCVP -->
+      <article class="project-card reveal">
+        <div class="project-visual p3">
+          <span class="project-badge">Enterprise / Logistics</span>
+          <div class="project-num">03</div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">Supply Chain Visibility Platform</h3>
+          <p class="project-desc">
+            An enterprise-scale platform for global logistics. Architected an event-driven system (Kafka, EDA) integrated with IoT sensors, customs APIs, and carrier webhooks using the C4 model.
+          </p>
+          <div class="project-metrics">
+            <div>
+              <div class="metric-num">15</div>
+              <div class="metric-label">Enterprise Diagrams</div>
+            </div>
+            <div>
+              <div class="metric-num">C4</div>
+              <div class="metric-label">Model Applied</div>
+            </div>
+            <div>
+              <div class="metric-num">EDA</div>
+              <div class="metric-label">Architecture</div>
+            </div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">C4 Model</span>
+            <span class="project-tag">Kafka</span>
+            <span class="project-tag">Event-Driven</span>
+            <span class="project-tag">Webhooks</span>
+            <span class="project-tag">Microservices</span>
+          </div>
+          <div class="project-footer">
+            <a href="files/SCVP_Enterprise_Analysis.pdf" target="_blank" rel="noopener" class="project-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              View PDF
+            </a>
+            <a href="files/SCVP_Enterprise_Analysis.pdf" download class="project-link secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download
+            </a>
+            <a href="#contact" class="project-link secondary">Discuss</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Ready to Add Abdullah to Your Team?</h2>
+      <p>If you're looking for someone who can turn ambiguity into documented, buildable systems — let's talk. I'm currently open to full-time roles and freelance analysis engagements.</p>
+      <div class="cta-actions">
+        <a href="mailto:iabdalla885@gmail.com" class="btn btn-white">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Email Me
+        </a>
+        <a href="https://www.linkedin.com/in/abdullah-ibrahim-a70152422" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="files/CV_Systems_Analyst.pdf" download class="btn btn-ghost">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-mark">SA</div>
+          <div class="logo-text">
+            <span class="logo-name">Abdullah Ibrahim Elsayed Mohamed Tawfik</span>
+            <span class="logo-role">Systems Analyst</span>
+          </div>
+        </a>
+        <p>Transforming complex business problems into clear, scalable, and compliant systems — through rigorous analysis and professional documentation.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Portfolio</h4>
+        <ul>
+          <li><a href="#projects">Case Studies</a></li>
+          <li><a href="#process">My Process</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#about">About Me</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <ul>
+          <li><a href="files/Clinic_Project.pdf" target="_blank">Clinic System</a></li>
+          <li><a href="files/SME_LOS_Analysis.pdf" target="_blank">Loan Origination</a></li>
+          <li><a href="files/SCVP_Enterprise_Analysis.pdf" target="_blank">Supply Chain</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:iabdalla885@gmail.com">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/abdullah-ibrahim-a70152422" target="_blank">LinkedIn</a></li>
+          <li><a href="https://github.com/AbdallahIbraheem44" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        © <span id="year"></span> 
+        <strong>Abdullah Ibrahim Elsayed Mohamed Tawfik</strong> — Systems Analyst. 
+        Built with clarity and care.
+      </div>
+      <div class="social-links">
+        <a href="mailto:iabdalla885@gmail.com" class="social-link" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/abdullah-ibrahim-a70152422" target="_blank" class="social-link" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/AbdallahIbraheem44" target="_blank" class="social-link" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// THEME TOGGLE
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const html = document.documentElement;
+const savedTheme = localStorage.getItem('theme') || 'light';
+html.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcon(next);
+});
+
+function updateThemeIcon(theme) {
+  if (theme === 'dark') {
+    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  } else {
+    themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  }
+}
+
+// NAVBAR SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+});
+
+// MOBILE MENU
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+function toggleMobileMenu() {
+  mobileMenu.classList.toggle('open');
+  mobileOverlay.classList.toggle('open');
+}
+mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+mobileOverlay.addEventListener('click', toggleMobileMenu);
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+  link.addEventListener('click', toggleMobileMenu);
+});
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// YEAR
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
